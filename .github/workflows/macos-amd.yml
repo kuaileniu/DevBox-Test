@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         platform: [macos-latest]
-    runs-on: macos-latest
+    runs-on: ${{ matrix.platform }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -59,13 +59,13 @@ jobs:
       # - name: Build the app
       #   uses: tauri-apps/tauri-action@v0 
 
-      - name: show release dir (macos only)
-        # if: matrix.platform == 'macos-latest'
-        run: |
-              ls  src-tauri/target/release              
-              ls  src-tauri/target/release/bundle              
-              ls  src-tauri/target/release/bundle/dmg              
-              ls  src-tauri/target/release/bundle/macos              
+      # - name: show release dir (macos only)
+      #   # if: matrix.platform == 'macos-latest'
+      #   run: |
+      #         ls  src-tauri/target/release              
+      #         ls  src-tauri/target/release/bundle              
+      #         ls  src-tauri/target/release/bundle/dmg              
+      #         ls  src-tauri/target/release/bundle/macos              
                           
         
       - name : upload execution(macos only)
@@ -73,14 +73,14 @@ jobs:
         uses: actions/upload-artifact@master
         if: always()                                      
         with:
-          name: bundle(macos-amd-standlone)
-          path: src-tauri/target/release/bundle
+          name: bundle-${{ runs-on }}
+          path: src-tauri/target/release/bundle/dmg/*.dmg
         
       - name : upload execution(dev box)
         # if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master
         if: always()                                      
         with:
-          name: DevBox(macos-amd)
+          name: DevBox$-{{ runs-on }}
           path: src-tauri/target/release/DevBox
        
