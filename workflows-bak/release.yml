@@ -1,0 +1,115 @@
+name: DevBox package
+
+on:
+# 可以手动从github->action 控制台手工触发
+  push:
+    branches:
+      - main
+      - init-20221116
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest, ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Node.js setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+      
+      - name: Rust setup
+        uses: actions-rs/toolchain@v1
+        with:
+          # toolchain: stable
+          toolchain: 1.65.0
+
+      - name: set current rust version
+        run: |
+              rustup default 1.65.0
+              
+      - name: show rust version
+        run: |
+              rustc --version
+              cargo version
+
+      - name: instal pnpm
+        run: |
+              npm install pnpm -g
+
+      - name: show pnpm version
+        run: |
+              pnpm --version
+
+      - name: Install app(front end) dependencies
+        run: |
+              pnpm install   
+
+      - name: Install dependencies (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev webkit2gtk-4.0 libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Build APP
+        run: |
+              pnpm tauri build
+
+      # - name: Build the app
+      #   uses: tauri-apps/tauri-action@v0 
+
+      - name: show release dir (macos only)
+        if: matrix.platform == 'macos-latest'
+        run: |
+              ls  src-tauri/target/release              
+              ls  src-tauri/target/release/bundle              
+              ls  src-tauri/target/release/bundle/dmg              
+              ls  src-tauri/target/release/bundle/macos              
+                          
+      - name: show release dir (ubuntu only--1)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |            
+              ls  src-tauri/target/release/bundle          
+      - name: show release dir (ubuntu only--2)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |                        
+              ls  src-tauri/target/release/bundle/appimage  
+
+      - name: show release dir (windows only---1)
+        if: matrix.platform == 'windows-latest'
+        run: |
+              ls  src-tauri/target/release              
+              ls  src-tauri/target/release/bundle
+      - name: show release dir (windows only---2)
+        if: matrix.platform == 'windows-latest'
+        run: |
+              ls  src-tauri/target/release/bundle/msi  
+      
+      - name : upload execution(macos only)
+        if: matrix.platform == 'macos-latest'
+        uses: actions/upload-artifact@master
+        # if: always()                                      
+        with:
+          name: tauri-app(macos)
+          path: src-tauri/target/release/bundle
+      - name : upload execution(ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        uses: actions/upload-artifact@master
+        # if: always()                                      
+        with:
+          name: tauri-app(ubuntu)
+          path: src-tauri/target/release/bundle
+      - name : upload execution(windows only)
+        if: matrix.platform == 'windows-latest'
+        uses: actions/upload-artifact@master
+        # if: always()                                      
+        with:
+          name: tauri-app(window)
+          path: src-tauri/target/release/bundle

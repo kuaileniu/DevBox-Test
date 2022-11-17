@@ -1,0 +1,86 @@
+name: DevBox package
+
+on:
+# 可以手动从github->action 控制台手工触发
+  push:
+    branches:
+      - main
+      - init-20221116
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+
+jobs:
+  release-macos-amd:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [macos-latest]
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Node.js setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18
+      
+      - name: Rust setup
+        uses: actions-rs/toolchain@v1
+        with:
+          # toolchain: stable
+          toolchain: 1.65.0
+
+      - name: set current rust version
+        run: |
+              rustup default 1.65.0
+              
+      - name: show rust version
+        run: |
+              rustc --version
+              cargo version
+
+      - name: instal pnpm
+        run: |
+              npm install pnpm -g
+
+      - name: show pnpm version
+        run: |
+              pnpm --version
+
+      - name: Install app(front end) dependencies
+        run: |
+              pnpm install   
+
+      - name: Build APP
+        run: |
+              pnpm tauri build
+
+      # - name: Build the app
+      #   uses: tauri-apps/tauri-action@v0 
+
+      - name: show release dir (macos only)
+        # if: matrix.platform == 'macos-latest'
+        run: |
+              ls  src-tauri/target/release              
+              ls  src-tauri/target/release/bundle              
+              ls  src-tauri/target/release/bundle/dmg              
+              ls  src-tauri/target/release/bundle/macos              
+                          
+        
+      - name : upload execution(macos only)
+        # if: matrix.platform == 'macos-latest'
+        uses: actions/upload-artifact@master
+        if: always()                                      
+        with:
+          name: tauri-app(macos-amd)
+          path: src-tauri/target/release/bundle
+        
+      - name : upload execution(dev box)
+        # if: matrix.platform == 'macos-latest'
+        uses: actions/upload-artifact@master
+        if: always()                                      
+        with:
+          name: DevBox(macos-amd)
+          path: src-tauri/target/release/DevBox
+       
