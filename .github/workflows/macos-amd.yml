@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@master
         if: always()                                      
         with:
-          name: bundle(macos-amd)
+          name: bundle(macos-amd-standlone)
           path: src-tauri/target/release/bundle
         
       - name : upload execution(dev box)

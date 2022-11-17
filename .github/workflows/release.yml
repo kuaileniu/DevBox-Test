@@ -97,19 +97,19 @@ jobs:
         uses: actions/upload-artifact@master
         # if: always()                                      
         with:
-          name: tauri-app(macos)
+          name: bundle(macos)
           path: src-tauri/target/release/bundle
       - name : upload execution(ubuntu only)
         if: matrix.platform == 'ubuntu-latest'
         uses: actions/upload-artifact@master
         # if: always()                                      
         with:
-          name: tauri-app(ubuntu)
+          name: bundle(ubuntu)
           path: src-tauri/target/release/bundle
       - name : upload execution(windows only)
         if: matrix.platform == 'windows-latest'
         uses: actions/upload-artifact@master
         # if: always()                                      
         with:
-          name: tauri-app(window)
+          name: bundle(window)
           path: src-tauri/target/release/bundle
