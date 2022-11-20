@@ -54,7 +54,7 @@ jobs:
 
       - name: Build APP
         run: |
-              pnpm tauri build
+              pnpm tauri build --target x86_64-apple-darwin
 
       # - name: Build the app
       #   uses: tauri-apps/tauri-action@v0 
