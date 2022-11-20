@@ -1,4 +1,4 @@
-name: DevBox package
+name: DevBox package x86_64
 
 on:
 # 可以手动从github->action 控制台手工触发
