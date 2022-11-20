@@ -82,5 +82,5 @@ jobs:
         if: always()                                      
         with:
           name: DevBox-macos-x86-64
-          path: src-tauri/target/x86_64-apple-darwin/release/bundle/macos/DevBox.app
+          path: src-tauri/target/x86_64-apple-darwin/release/bundle/macos
        
