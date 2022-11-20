@@ -73,7 +73,7 @@ jobs:
         uses: actions/upload-artifact@master
         if: always()                                      
         with:
-          name: bundle-${{ runs-on }}
+          name: bundle-macos-x86-64
           path: src-tauri/target/release/bundle/dmg/*.dmg
         
       - name : upload execution(dev box)
@@ -81,6 +81,6 @@ jobs:
         uses: actions/upload-artifact@master
         if: always()                                      
         with:
-          name: DevBox$-{{ runs-on }}
+          name: DevBox-macos-x86-64
           path: src-tauri/target/release/DevBox
        
