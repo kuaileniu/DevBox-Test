@@ -74,7 +74,7 @@ jobs:
         if: always()                                      
         with:
           name: bundle-macos-x86-64
-          path: src-tauri/target/release/bundle/dmg/*.dmg
+          path: src-tauri/target/release/x86_64-apple-darwin/bundle/dmg/*.dmg
         
       - name : upload execution(dev box)
         # if: matrix.platform == 'macos-latest'
@@ -82,5 +82,5 @@ jobs:
         if: always()                                      
         with:
           name: DevBox-macos-x86-64
-          path: src-tauri/target/release/DevBox
+          path: src-tauri/target/x86_64-apple-darwin/release/DevBox.app
        
