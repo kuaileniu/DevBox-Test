@@ -54,10 +54,14 @@ jobs:
       - name: Install app(front end) dependencies
         run: |
               pnpm install  
-               
+
       - name: install upx
         run: brew install upx
 
+      - name: print upx version
+        run: |              
+              upx --version
+              
       - name: Build APP
         run: |
               pnpm tauri build --target universal-apple-darwin

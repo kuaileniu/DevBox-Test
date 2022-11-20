@@ -53,7 +53,12 @@ jobs:
               pnpm install 
 
       - name: install upx
-        run: brew install upx
+        run: |
+              brew install upx
+
+      - name: print upx version
+        run: |              
+              upx --version
 
       - name: Build APP
          # pnpm tauri build
