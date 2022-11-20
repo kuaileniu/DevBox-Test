@@ -50,7 +50,10 @@ jobs:
 
       - name: Install app(front end) dependencies
         run: |
-              pnpm install   
+              pnpm install 
+
+      - name: install upx
+        run: brew install upx
 
       - name: Build APP
          # pnpm tauri build
@@ -66,9 +69,8 @@ jobs:
       #         ls  src-tauri/target/release              
       #         ls  src-tauri/target/release/bundle              
       #         ls  src-tauri/target/release/bundle/dmg              
-      #         ls  src-tauri/target/release/bundle/macos              
-                          
-        
+      #         ls  src-tauri/target/release/bundle/macos
+
       - name : upload execution(macos only)
         # if: matrix.platform == 'macos-latest'
         uses: actions/upload-artifact@master

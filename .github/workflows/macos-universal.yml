@@ -53,7 +53,10 @@ jobs:
 
       - name: Install app(front end) dependencies
         run: |
-              pnpm install   
+              pnpm install  
+               
+      - name: install upx
+        run: brew install upx
 
       - name: Build APP
         run: |

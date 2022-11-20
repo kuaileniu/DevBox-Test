@@ -1,5 +1,6 @@
 {
     "build": {
+        "beforeBundleCommand": "upx -9 src-tauri/target/**/release/DevBox",
         "beforeDevCommand": "pnpm dev",
         "beforeBuildCommand": "pnpm build",
         "devPath": "http://localhost:1420",
