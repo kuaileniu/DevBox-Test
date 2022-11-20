@@ -10,7 +10,7 @@ on:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
-  release-macos-amd:
+  release-universal-apple-darwin:
     strategy:
       fail-fast: false
       matrix:
@@ -54,7 +54,7 @@ jobs:
 
       - name: Build APP
         run: |
-              pnpm tauri build --target x86_64-apple-darwin
+              pnpm tauri build --target universal-apple-darwin
 
       # - name: Build the app
       #   uses: tauri-apps/tauri-action@v0 
