@@ -39,7 +39,10 @@ jobs:
         run: |
               rustc --version
               cargo version
-
+      - name: add target for aarch64-apple-darwin         
+        run: |
+              rustup target add aarch64-apple-darwin
+              rustup target add x86_64-apple-darwin
       - name: instal pnpm
         run: |
               npm install pnpm -g
