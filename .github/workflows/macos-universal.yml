@@ -73,16 +73,16 @@ jobs:
         uses: actions/upload-artifact@master
         if: always()                                      
         with:
-          name: bundle-macos-x86-64
+          name: bundle-universal-apple-darwin
           # 这个安装后（经安全与隐私放行）后可正常使用
-          path: src-tauri/target/x86_64-apple-darwin/release/bundle/dmg/*.dmg
+          path: src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg
         
-      # - name : upload execution(dev box)
-      #   # if: matrix.platform == 'macos-latest'
-      #   uses: actions/upload-artifact@master
-      #   if: always()                                      
-      #   with:
-      #     name: DevBox-macos-x86-64
-      #     # 您没有权限来打开应用程序
-      #     path: src-tauri/target/x86_64-apple-darwin/release/bundle/macos
+      - name : upload execution(dev box)
+        # if: matrix.platform == 'macos-latest'
+        uses: actions/upload-artifact@master
+        if: always()                                      
+        with:
+          name: DevBox-universal-apple-darwin
+          # 您没有权限来打开应用程序
+          path: src-tauri/target/universal-apple-darwin/release/bundle/macos
        
