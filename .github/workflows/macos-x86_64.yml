@@ -81,7 +81,7 @@ jobs:
         uses: actions/upload-artifact@master
         if: always()                                      
         with:
-          name: bundle-macos-x86-64
+          name: dmg-macos-x86-64
           # 这个安装后（经安全与隐私放行）后可正常使用
           path: src-tauri/target/x86_64-apple-darwin/release/bundle/dmg/*.dmg
         

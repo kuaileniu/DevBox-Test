@@ -61,7 +61,7 @@ jobs:
       - name: print upx version
         run: |              
               upx --version
-              
+
       - name: Build APP
         run: |
               pnpm tauri build --target universal-apple-darwin
@@ -83,7 +83,7 @@ jobs:
         uses: actions/upload-artifact@master
         if: always()                                      
         with:
-          name: bundle-universal-apple-darwin
+          name: dmg-universal-apple-darwin
           # 这个安装后（经安全与隐私放行）后可正常使用
           path: src-tauri/target/universal-apple-darwin/release/bundle/dmg/*.dmg
         
